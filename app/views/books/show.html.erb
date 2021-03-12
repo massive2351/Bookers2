@@ -1,0 +1,61 @@
+
+<div class="containar">
+  <div class="row offset-md-1">
+    <div class="col-md-2 ">
+      <h2>User info</h2>
+      <%= attachment_image_tag @user, :image, :fill, 100, 100, fallback:"no_image.png", size: '100x100' %><br>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th><%= @book.user.name %></th>
+          </tr>
+          <tr>
+            <th>Introduction</th>
+            <th><%= @book.user.profile %></th>
+          </tr>
+        </tbody>
+      </table>
+      <% if @book.user.id == current_user.id %>
+        <%= link_to "編集", edit_book_path(@book) %>
+      <% end %>
+      
+      <h2 class=>New Book</h2>
+      <div class="row">
+        <div class="col-lg-2">
+          <%= form_for @book do |f| %>
+            <%= f.label :title %>
+            <%= f.text_field :title %>
+            <%= f.label :body %>
+            <%= f.text_area :body %>
+            <%= f.submit %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @book.user.name %></td>
+            <td><%= @book.title %></td>
+            <td><%= simple_format @book.body %></td>
+            <td>
+              <% if @book.user.id == current_user.id %>
+                <%= link_to "編集", edit_book_path(@book) %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
