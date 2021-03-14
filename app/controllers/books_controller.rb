@@ -1,7 +1,8 @@
 class BooksController < ApplicationController
-  def index 
+  def index
     @books = Book.all
     @book = Book.new
+    @user = current_user
   end
 
   def new
@@ -11,30 +12,45 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
-    @book.save
-    redirect_to book_path(@book)
+    
+    if @book.save
+     redirect_to book_path(@book), notice: "You have created book successfully."
+    else
+      render :new
+    end
   end
 
   def show
-    @book = Book.new
     @book = Book.find(params[:id])
-
+    @booknew = Book.new
+    @user = current_user
 
   end
 
   def edit
     @book = Book.find(params[:id])
+    if @book.user != current_user
+      redirect_to books_path, alert: "不正なアクセスです。"
+    end
   end
 
   def update
     @book = Book.find(params[:id])
-    @book.update(book_params)
-    redirect_to book_path(@book)
+    if @book.update(book_params)
+     redirect_to book_path(@book), notice: "You have updated book successfully."
+    else :edit
+    end
+  end
+
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path, notice: "You have delete book successfully."
   end
 
   private
-  
   def book_params
     params.require(:book).permit(:title, :body)
   end
 end
+
