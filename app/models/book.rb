@@ -5,5 +5,6 @@ class Book < ApplicationRecord
     validates :title
     validates :body
   end
+
   
 end
