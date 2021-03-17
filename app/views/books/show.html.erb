@@ -12,12 +12,12 @@
           </tr>
           <tr>
             <th>Introduction</th>
-            <th><%= @book.user.profile %></th>
+            <th><%= @book.user.introduction %></th>
           </tr>
         </tbody>
       </table>
       <% if @book.user.id == current_user.id %>
-        <%= link_to "編集", edit_book_path(@book), class: "btn btn-outline-secondary btn-block fas fa-user-cog" %>
+        <%= link_to "ユーザー編集", edit_user_path(@user), class: "btn btn-outline-secondary btn-block fas fa-user-cog" %>
       <% end %>
       
       <% if @book.errors.any? %>
@@ -63,7 +63,7 @@
             <td>
               <% if @book.user.id == current_user.id %>
                 <%= link_to "Edit", edit_book_path(@book) %>
-                <%= link_to "destroy", book_path(@book.id), method: :delete  %>
+                <%= link_to "Destroy", book_path(@book.id), method: :delete  %>
               <% end %>
             </td>
           </tr>
