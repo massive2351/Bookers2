@@ -363,7 +363,7 @@ describe '[STEP2] ユーザログイン後のテスト' do
         expect(page).to have_field 'user[name]', with: user.name
       end
       it '画像編集フォームが表示される' do
-        expect(page).to have_field 'user[profile_image]'
+        expect(page).to have_field 'user[image]'
       end
       it '自己紹介編集フォームに自分の自己紹介文が表示される' do
         expect(page).to have_field 'user[introduction]', with: user.introduction
